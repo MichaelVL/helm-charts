@@ -4,7 +4,7 @@ labels:
 
 gateway:
   hosts:
-   - example.com
+    - example.com
 
 virtualservices:
   vs1:
@@ -18,7 +18,7 @@ virtualservices:
 serviceentries:
   google-apis:
     hosts:
-     - www.googleapis.com
+      - www.googleapis.com
     ports:
       port-a:
         number: 80
@@ -27,5 +27,5 @@ serviceentries:
         number: 81
   aws-s3:
     hosts:
-     - "*.s3..amazonaws.com"
+      - "*.s3..amazonaws.com"
     resolution: NONE
