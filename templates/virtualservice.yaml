@@ -1,0 +1,31 @@
+{{ $gwname := include "istio.fullname" . }}
+{{- range $vs,$spec := .Values.virtualservices }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ $vs }}
+spec:
+  gateways:
+  - {{ $gwname }}
+  hosts:
+  {{- range $.Values.gateway.hosts }}
+  - {{ . }}
+  {{- end }}
+  http:
+  - name: {{ $vs }}
+    {{- with $spec.uriprefix }}
+    match:
+    - uri:
+        prefix: {{ $spec.uriprefix | quote }}
+    {{- end }}
+    {{- with $spec.rewrite }}
+    rewrite:
+      uri: {{ . | quote }}
+    {{- end }}
+    route:
+    - destination:
+        host: {{ $spec.destination | quote }}
+        port:
+          number: {{ default 80 $spec.port }}
+---
+{{- end }}

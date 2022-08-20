@@ -1,0 +1,31 @@
+labels:
+  app: istio-internal
+  istio: internal
+
+gateway:
+  hosts:
+   - example.com
+
+virtualservices:
+  vs1:
+    uriprefix: "a-prefix"
+    rewrite: "b-prefix"
+    destinaton: svc1.ns.svc.cluster.local
+  vs2:
+    destinaton: svc2.ns.svc.cluster.local
+    port: 8080
+
+serviceentries:
+  google-apis:
+    hosts:
+     - www.googleapis.com
+    ports:
+      port-a:
+        number: 80
+        protocol: HTTP
+      port-b:
+        number: 81
+  aws-s3:
+    hosts:
+     - "*.s3..amazonaws.com"
+    resolution: NONE

@@ -1,0 +1,11 @@
+labels: {}
+
+gateway:
+  enabled: true
+  port: 80
+  host: []
+  selector: {}
+
+virtualservices: {}
+
+serviceentries: {}

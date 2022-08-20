@@ -1,0 +1,10 @@
+apiVersion: v2
+name: istio-ingress-egress
+description: A Helm chart for creating Istio resources
+
+type: application
+
+version: 0.1.0
+
+# Istio version
+appVersion: "1.14.3"
