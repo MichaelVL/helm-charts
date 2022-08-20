@@ -1,4 +1,4 @@
-name: Lint and Release Charts
+name: Lint and Test Charts
 
 on:
   pull_request:
@@ -7,9 +7,7 @@ on:
       - main
 
 jobs:
-  lint-release:
-    permissions:
-      contents: write
+  lint-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,11 +34,3 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
-
-      - name: Run chart-testing (lint)
-        run: ct lint --config .github/configs/ct-lint.yaml
-
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.0
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
