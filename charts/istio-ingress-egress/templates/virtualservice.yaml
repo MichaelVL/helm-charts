@@ -28,5 +28,4 @@ spec:
         port:
           number: {{ default 80 $spec.port }}
 ---
-
 {{- end }}
