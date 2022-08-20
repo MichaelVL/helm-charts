@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  istio-ingress-egress:
+  - apiVersion: v2
+    appVersion: 1.14.3
+    created: "2022-08-20T15:16:10.754309147Z"
+    description: A Helm chart for creating Istio resources
+    digest: 643bae0253c4a763f251fbb54e2ec5a4a2ba6d3bb631891d718e186d4698c82d
+    name: istio-ingress-egress
+    type: application
+    urls:
+    - https://github.com/pixelperfekt-dk/helm-charts/releases/download/istio-ingress-egress-0.1.1/istio-ingress-egress-0.1.1.tgz
+    version: 0.1.1
+generated: "2022-08-20T15:16:10.754315848Z"
