@@ -1,0 +1,19 @@
+labels:
+  app: gw-internal
+  gw-type: internal
+
+gateway:
+  enabled: true
+  listeners:
+    web:
+      port: 80
+      protocol: HTTP
+
+httproutes:
+ rt1:
+   hosts:
+    - nginx.192.168.122.222.nip.io
+   rules:
+   - backendRefs:
+     - name: foo
+       port: 80

@@ -1,0 +1,13 @@
+labels: {}
+
+gateway:
+  name: null
+  # gatewayClassName: 
+  listeners: {}
+  #   web:
+  #     port: 80
+  #     protocol: HTTP
+
+httproutes: {}
+  # hosts:
+  #  - example.com
