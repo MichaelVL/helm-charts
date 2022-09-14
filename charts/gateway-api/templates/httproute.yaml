@@ -3,6 +3,7 @@ apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 metadata:
   name: {{ $rt }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- with $.Values.labels }}
     {{- toYaml . | nindent 4 }}
@@ -11,11 +12,29 @@ spec:
   parentRefs:
   - kind: Gateway
     name: {{ default (include "gateway-api.fullname" $) $.Values.gateway.name }}
+  {{- if $spec.hosts }}
   hostnames:
   {{- range $spec.hosts }}
-  - {{ . }}
-  {{- end }}
+  - {{ . | quote }}
+  {{- end -}}
+  {{- end -}}
+  {{- if $spec.rules }}
   rules:
     {{- toYaml $spec.rules | nindent 2 }}
+  {{- else if $spec.destination }}
+  rules:
+  - backendRefs:
+    - name: {{ $spec.destination }}
+      port: {{ default 80 $spec.port }}
+      {{- if $spec.namespace }}
+      namespace: {{ $spec.namespace }}
+      {{- end }}
+    {{- if $spec.uriprefix }}
+    matches:
+    - path:
+        type: PathPrefix
+        value: {{ $spec.uriprefix }}
+    {{- end -}}
+  {{- end }}
 ---
 {{- end }}

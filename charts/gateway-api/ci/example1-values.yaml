@@ -3,17 +3,29 @@ labels:
   gw-type: internal
 
 gateway:
-  enabled: true
+  gatewayClassName: gwclass-name
   listeners:
     web:
       port: 80
       protocol: HTTP
+      hostname: "*.192.168.122.222.nip.io"
 
 httproutes:
- rt1:
-   hosts:
-    - nginx.192.168.122.222.nip.io
-   rules:
-   - backendRefs:
-     - name: foo
-       port: 80
+  rt1:
+    uriprefix: "a-prefix"
+    destination: svc1
+    namespace: ns1
+  rt2:
+    hosts:
+    - rt2.192.168.122.222.nip.io
+    uriprefix: "a-prefix"
+    destination: svc2
+    namespace: ns2
+    port: 8181
+  rt3:
+    hosts:
+    - rt3.192.168.122.222.nip.io
+    rules:
+    - backendRefs:
+      - name: foo
+        port: 80

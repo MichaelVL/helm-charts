@@ -1,0 +1,23 @@
+# Create ReferenceGrant for all HTTPRoutes that have explicit namespace
+{{- range $rt,$spec := .Values.httproutes }}
+{{- if $spec.namespace }}
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: ReferenceGrant
+metadata:
+  name: {{ $rt }}
+  namespace: {{ $spec.namespace }}
+  labels:
+    {{- with $.Values.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: {{ $.Release.Namespace }}
+  to:
+  - group: ""
+    kind: Service
+---
+{{- end }}
+{{- end }}
