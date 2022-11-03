@@ -1,3 +1,4 @@
+{{- if .Values.referencegrant.enabled -}}
 # Create ReferenceGrant for all HTTPRoutes that have explicit namespace
 {{- range $rt,$spec := .Values.httproutes }}
 {{- if $spec.namespace }}
@@ -19,5 +20,6 @@ spec:
   - group: ""
     kind: Service
 ---
+{{- end }}
 {{- end }}
 {{- end }}

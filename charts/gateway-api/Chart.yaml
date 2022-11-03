@@ -1,10 +1,10 @@
 apiVersion: v2
 name: gateway-api
-description: A Helm chart for crating gateway-api configuration
+description: A Helm chart for creating gateway-api configuration
 
 type: application
 
-version: 0.2.0
+version: 0.2.2
 
 # Gateway API version
 appVersion: "0.5.0"

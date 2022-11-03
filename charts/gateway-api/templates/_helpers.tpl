@@ -60,3 +60,17 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+The version of the Gateway resource
+*/}}
+{{- define "gateway-api.gatewayVersion" -}}
+v1beta1
+{{- end }}
+
+{{/*
+The version of the HTTPRoute resource
+*/}}
+{{- define "gateway-api.httprouteVersion" -}}
+v1beta1
+{{- end }}
