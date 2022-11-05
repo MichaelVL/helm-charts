@@ -1,0 +1,29 @@
+nameOverride: ""
+fullnameOverride: ""
+
+namespaces:
+  foo:
+    labels:
+      l1: lv1
+    annotations:
+      a1: av1
+    resources:
+      # -- Namespace quotas, optional. See https://kubernetes.io/docs/concepts/policy/resource-quotas/
+      quotas:
+        cpu: 10
+        memory: 20Gi
+      # -- Resource defaults
+      defaults:
+        # -- Defaults requests, optional
+        requests:
+          cpu: 0.5
+          memory: 1Gi
+        # -- Defaults limits, optional
+        limits:
+          cpu: 1
+          memory: 2Gi
+    network:
+      # -- Allow cluster external traffic, e.g. Internet access
+      allowExternal: true
+
+  bar: {}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: tenant
+description: A Helm chart for managing tenants in a multi-tenant cluster
+type: application
+version: 0.0.1
+appVersion: "1.16.0"

@@ -1,0 +1,23 @@
+{{ range $name,$ns := .Values.namespaces }}
+{{- if $ns.resources }}
+{{- if $ns.resources.quotas }}
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{ $name }}
+  namespace: {{ $name }}
+  {{- if $ns.labels }}
+  labels:
+    {{- toYaml $ns.labels | nindent 4 }}
+  {{- end }}
+  {{- if $ns.annotations }}
+  annotations:
+    {{- toYaml $ns.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  hard:
+    {{- toYaml $ns.resources.quotas | nindent 4 }}
+---
+{{ end -}}
+{{ end -}}
+{{ end -}}

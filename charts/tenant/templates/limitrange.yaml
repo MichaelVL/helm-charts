@@ -1,0 +1,31 @@
+{{ range $name,$ns := .Values.namespaces }}
+{{- if $ns.resources }}
+{{- if $ns.resources.defaults }}
+{{- $defaults := $ns.resources.defaults }}
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: {{ $name }}
+  namespace: {{ $name }}
+  {{- if $ns.labels }}
+  labels:
+    {{- toYaml $ns.labels | nindent 4 }}
+  {{- end }}
+  {{- if $ns.annotations }}
+  annotations:
+    {{- toYaml $ns.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  limits:
+  - {{ if $defaults.limits -}}
+      default:
+        {{- toYaml $defaults.limits | nindent 6 }}
+    {{ end -}}
+    {{ if $defaults.requests -}}
+    defaultRequest:
+      {{- toYaml $defaults.requests | nindent 6 }}
+    {{ end }}
+---
+{{ end -}}
+{{ end -}}
+{{ end -}}

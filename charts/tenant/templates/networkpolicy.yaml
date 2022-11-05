@@ -1,0 +1,28 @@
+{{ range $name,$ns := .Values.namespaces }}
+{{ if $ns.network }}
+{{ if $ns.network.allowExternal }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ $name }}
+  namespace: {{ $name }}
+  {{- if $ns.labels }}
+  labels:
+    {{- toYaml $ns.labels | nindent 4 }}
+  {{- end }}
+  {{- if $ns.annotations }}
+  annotations:
+    {{- toYaml $ns.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+---
+{{ end -}}
+{{ end -}}
+{{ end -}}
