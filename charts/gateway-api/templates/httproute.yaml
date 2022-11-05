@@ -1,5 +1,5 @@
 {{- range $rt,$spec := .Values.httproutes }}
-apiVersion: gateway.networking.k8s.io/{{ include "gateway-api.httpRouteVersion }}
+apiVersion: gateway.networking.k8s.io/{{ include "gateway-api.httpRouteVersion" . }}
 kind: HTTPRoute
 metadata:
   name: {{ $rt }}

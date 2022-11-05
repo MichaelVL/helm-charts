@@ -1,5 +1,5 @@
 {{- if .Values.gateway.listeners -}}
-apiVersion: gateway.networking.k8s.io/{{ include "gateway-api.gatewayVersion }}
+apiVersion: gateway.networking.k8s.io/{{ include "gateway-api.gatewayVersion" . }}
 kind: Gateway
 metadata:
   name: {{ default (include "gateway-api.fullname" .) .Values.gateway.name }}

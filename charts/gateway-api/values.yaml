@@ -1,11 +1,8 @@
-# -- The Gateway API version
-gatewayApiVersion: 0.5.1
-
 labels: {}
 
 gateway:
-  # -- Gateway name defaults to a name based on the chart release name. Also used for httpRoutes, including when no gateway resource is created
-  name: 
+  # -- Gateway name defaults to a name based on the chart release name. Also used for HTTPRoutes, including when no gateway resource is created
+  name:
   gatewayClassName:
   # -- List of gateway listeners. Gateway resources are only created if at least one listener is defined
   listeners: {}
@@ -26,6 +23,7 @@ httproutes: {}
   #   namespace: example-namespace
   #   port: 8181
 
+# -- Create ReferenceGrant for all HTTPRoute's that have an explicit namespace.
 referencegrant:
   # -- Create ReferenceGrant for HTTPRoutes
   enabled: true

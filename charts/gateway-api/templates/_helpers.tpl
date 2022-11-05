@@ -62,15 +62,15 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-The version of the Gateway resource
+The version of the Gateway resource. May use .Chart.appVersion
 */}}
 {{- define "gateway-api.gatewayVersion" -}}
 v1beta1
 {{- end }}
 
 {{/*
-The version of the HTTPRoute resource
+The version of the HTTPRoute resource. May use .Chart.appVersion
 */}}
-{{- define "gateway-api.httprouteVersion" -}}
+{{- define "gateway-api.httpRouteVersion" -}}
 v1beta1
 {{- end }}
