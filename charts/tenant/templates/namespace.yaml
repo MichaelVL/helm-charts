@@ -3,12 +3,13 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: {{ $name }}
-  {{- if $ns.labels }}
   labels:
-    {{- toYaml $ns.labels | nindent 4 }}
-  {{- end }}
-  {{- if $ns.annotations }}
+    namespaceName: {{ $name }}
+    {{- include "tenant.chartlabels" $ | nindent 4 }}
+    {{- include "tenant.commonlabels" $ | nindent 4 }}
+    {{- include "tenant.labels" $ns | nindent 4 }}
   annotations:
+  {{- if $ns.annotations }}
     {{- toYaml $ns.annotations | nindent 4 }}
   {{- end }}
 ---

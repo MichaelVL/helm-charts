@@ -1,7 +1,15 @@
 nameOverride: ""
 fullnameOverride: ""
 
+# -- Settings common to all resources
+common:
+  labels:
+    cl1: clv1
+  annotations:
+    ca1: cav1
+
 namespaces:
+  # -- Namespace name
   foo:
     labels:
       l1: lv1

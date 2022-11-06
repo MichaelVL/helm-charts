@@ -31,13 +31,30 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
-Common labels
+Chart labels.
 */}}
-{{- define "tenant.labels" -}}
+{{- define "tenant.chartlabels" -}}
 helm.sh/chart: {{ include "tenant.chart" . }}
-{{ include "tenant.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Common labels.
+*/}}
+{{- define "tenant.commonlabels" -}}
+{{- if .Values.common.labels }}
+{{- toYaml .Values.common.labels }}
+{{- end }}
+{{- end }}
+
+{{/*
+Namespace specific labels. Context should be namespace
+*/}}
+{{- define "tenant.labels" -}}
+{{- if .labels }}
+{{- toYaml .labels }}
+{{- end }}
 {{- end }}
