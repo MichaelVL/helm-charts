@@ -1,37 +1,61 @@
-nameOverride: ""
-fullnameOverride: ""
+#nameOverride: ""
+#fullnameOverride: ""
 
 # -- Settings common to all resources
-common:
-  labels:
-    cl1: clv1
-  annotations:
-    ca1: cav1
+common: {}
+  # -- Common labels, added to per-namespace labels
+  #labels:
+  #  cl1: clv1
+  # -- Common annotations, added to per-namespace annotations
+  #annotations:
+  #  ca1: cav1
+  # -- Resource default. Per-namespace settings override these defaults
+  #resources:
+    # -- Namespace quotas, optional. See https://kubernetes.io/docs/concepts/policy/resource-quotas/
+    #quotas:
+    #  cpu: 10
+    #  memory: 20Gi
+    # -- Resource defaults
+    #defaults:
+      # -- Defaults requests, optional
+      #requests:
+      #  cpu: 0.5
+      #  memory: 1Gi
+      # -- Defaults limits, optional
+      #limits:
+      #  cpu: 1
+      #  memory: 2Gi
+  # -- Network settings
+  #network:
+    # -- Allow cluster external traffic, e.g. Internet access
+    #allowExternal: true
 
-namespaces:
+namespaces: {}
   # -- Namespace name
-  foo:
-    labels:
-      l1: lv1
-    annotations:
-      a1: av1
-    resources:
+  #foo:
+    #labels:
+    #  l1: lv1
+    #annotations:
+    #  a1: av1
+    # -- Namespace specific resource settings
+    #resources:
       # -- Namespace quotas, optional. See https://kubernetes.io/docs/concepts/policy/resource-quotas/
-      quotas:
-        cpu: 10
-        memory: 20Gi
+      #quotas:
+      #  cpu: 10
+      #  memory: 20Gi
       # -- Resource defaults
-      defaults:
+      #defaults:
         # -- Defaults requests, optional
-        requests:
-          cpu: 0.5
-          memory: 1Gi
+        #requests:
+        #  cpu: 0.5
+        #  memory: 1Gi
         # -- Defaults limits, optional
-        limits:
-          cpu: 1
-          memory: 2Gi
-    network:
+        #limits:
+        #  cpu: 1
+        #  memory: 2Gi
+    # -- Namespace specific network settings
+    #network:
       # -- Allow cluster external traffic, e.g. Internet access
-      allowExternal: true
+      #allowExternal: true
 
-  bar: {}
+  #bar: {}

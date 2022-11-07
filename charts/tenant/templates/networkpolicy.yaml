@@ -1,6 +1,8 @@
 {{ range $name,$ns := .Values.namespaces }}
-{{ if $ns.network }}
-{{ if $ns.network.allowExternal }}
+{{ $commonnet := default (dict) $.Values.common.network }}
+{{ $nsnet := default (dict) $ns.network }}
+{{ $network := mergeOverwrite (deepCopy $commonnet) $nsnet }}
+{{ if $network.allowExternal }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -23,6 +25,5 @@ spec:
         - ipBlock:
             cidr: 0.0.0.0/0
 ---
-{{ end -}}
 {{ end -}}
 {{ end -}}

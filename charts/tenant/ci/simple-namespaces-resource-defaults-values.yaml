@@ -1,0 +1,33 @@
+common:
+  resources:
+    quotas:
+      cpu: 10
+      memory: 20Gi
+    defaults:
+      requests:
+        cpu: 0.5
+        memory: 1Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+  network:
+    allowExternal: true
+
+namespaces:
+  foo: {}
+  bar: {}
+  baz: {}
+  bob:
+    resources:
+      quotas:
+        cpu: 100
+        memory: 200Gi
+      defaults:
+        requests:
+          cpu: 5
+          memory: 10Gi
+        limits:
+          cpu: 10
+          memory: 20Gi
+    network:
+      allowExternal: false

@@ -1,7 +1,9 @@
 {{ range $name,$ns := .Values.namespaces }}
-{{- if $ns.resources }}
-{{- if $ns.resources.defaults }}
-{{- $defaults := $ns.resources.defaults }}
+{{ $commonresources := default (dict) $.Values.common.resources }}
+{{ $nsresources := default (dict) $ns.resources }}
+{{ $resources := mergeOverwrite (deepCopy $commonresources) $nsresources }}
+{{- $defaults := $resources.defaults }}
+{{- if $defaults }}
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -27,6 +29,5 @@ spec:
       {{- toYaml $defaults.requests | nindent 6 }}
     {{ end }}
 ---
-{{ end -}}
 {{ end -}}
 {{ end -}}

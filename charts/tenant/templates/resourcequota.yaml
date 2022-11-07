@@ -1,6 +1,8 @@
 {{ range $name,$ns := .Values.namespaces }}
-{{- if $ns.resources }}
-{{- if $ns.resources.quotas }}
+{{ $commonresources := default (dict) $.Values.common.resources }}
+{{ $nsresources := default (dict) $ns.resources }}
+{{ $resources := mergeOverwrite (deepCopy $commonresources) $nsresources }}
+{{- if $resources.quotas }}
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -16,8 +18,7 @@ metadata:
   {{- end }}
 spec:
   hard:
-    {{- toYaml $ns.resources.quotas | nindent 4 }}
+    {{- toYaml $resources.quotas | nindent 4 }}
 ---
-{{ end -}}
 {{ end -}}
 {{ end -}}
