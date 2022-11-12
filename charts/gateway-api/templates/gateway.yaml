@@ -1,4 +1,4 @@
-{{- if .Values.gateway.listeners -}}
+{{- if or .Values.gateway.create .Values.gateway.listeners -}}
 apiVersion: gateway.networking.k8s.io/{{ include "gateway-api.gatewayVersion" . }}
 kind: Gateway
 metadata:

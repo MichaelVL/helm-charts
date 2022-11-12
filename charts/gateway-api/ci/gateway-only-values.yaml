@@ -1,0 +1,7 @@
+gateway:
+  gatewayClassName: gwclass-name
+  listeners:
+    web:
+      port: 80
+      protocol: HTTP
+      hostname: "*.192.168.122.222.nip.io"

@@ -1,6 +1,35 @@
 {{ template "chart.header" . }}
 {{ template "chart.description" . }}
 
-See [Kubernetes Gateway API](https://github.com/kubernetes-sigs/gateway-api)
+This is a chart that provides common network ingress definitions using the [Kubernetes Gateway API](https://github.com/kubernetes-sigs/gateway-api).
+
+The chart support the 'multiple personas' pattern with e.g. 'developers' and 'cluster operators' described by the Gateway API documentation.
+
+![Gateway API model](https://gateway-api.sigs.k8s.io/images/api-model.png)
+
+Cluster operators may instantiate a Gateway using the following values:
+
+```yaml
+gateway:
+  gatewayClassName: gwclass-name
+  listeners:
+    web:
+      port: 80
+      protocol: HTTP
+      hostname: "*.example.com"
+```
+
+SImilarly, developers may define routes for HTTP services with:
+
+```yaml
+gateway:
+  name: gateway-created-by-cluster-operator
+
+httproutes:
+  my-service:
+    uriprefix: "a-prefix"
+    destination: my-svc
+    namespace: my-ns
+```
 
 {{ template "chart.valuesSection" . }}
