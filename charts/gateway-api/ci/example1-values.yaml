@@ -3,6 +3,7 @@ labels:
   gw-type: internal
 
 gateway:
+  create: true
   gatewayClassName: gwclass-name
   listeners:
     web:

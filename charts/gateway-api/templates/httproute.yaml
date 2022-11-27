@@ -10,11 +10,11 @@ metadata:
     {{- end }}
 spec:
   parentRefs:
-  {{- if $.Values.gateway.create -}}
+  {{- if $.Values.gateway.create }}
   - kind: Gateway
     name: {{ default (include "gateway-api.fullname" $) $.Values.gateway.name }}
   {{- end -}}
-  {{- if $spec.meshAttached -}}
+  {{- if $spec.meshAttached }}
   - kind: Mesh
     name: istio
   {{- end -}}
