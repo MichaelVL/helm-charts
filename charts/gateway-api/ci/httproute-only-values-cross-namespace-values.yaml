@@ -1,5 +1,6 @@
 gateway:
   name: existing-gw
+  namespace: gw-ns
 
 httproutes:
   rt1:

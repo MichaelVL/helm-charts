@@ -5,6 +5,8 @@ gateway:
   create: false
   # -- Gateway name defaults to a name based on the chart release name. Also used for HTTPRoutes, including when no gateway resource is created
   name:
+  # -- Namespace where to create Gateway resource or when `gateway.create` is false then the namespace of an existing Gateway
+  namespace:
   gatewayClassName:
   # -- List of gateway listeners. Gateway resources are only created if at least one listener is defined
   listeners: {}
