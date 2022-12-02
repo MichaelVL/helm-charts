@@ -40,6 +40,9 @@ helm.sh/chart: {{ include "gateway-api.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- if .Values.labels }}
+{{ toYaml .Values.labels }}
+{{- end }}
 {{- end }}
 
 {{/*
@@ -73,4 +76,15 @@ The version of the HTTPRoute resource. May use .Chart.appVersion
 */}}
 {{- define "gateway-api.httpRouteVersion" -}}
 v1beta1
+{{- end }}
+
+{{/*
+The version of the ReferenceGrant resource. May use .Chart.appVersion
+*/}}
+{{- define "gateway-api.referenceGrantVersion" -}}
+{{- if semverCompare "< 0.6.0" .Chart.AppVersion -}}
+v1alpha2
+{{- else -}}
+v1beta1
+{{- end -}}
 {{- end }}
