@@ -16,6 +16,10 @@ spec:
     {{- if $v.hostname }}
     hostname: {{ $v.hostname | quote }}
     {{- end }}
+    {{- if $v.tls }}
+    tls:
+    {{- toYaml $v.tls | nindent 6 }}
+    {{- end }}
   {{- end -}}
   {{- if .Values.gateway.addresses }}
   addresses:

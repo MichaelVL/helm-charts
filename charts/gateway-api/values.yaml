@@ -1,3 +1,6 @@
+# Gateway API version
+gatewayAPIVersion: "0.6.0"
+
 labels: {}
 
 gateway:
@@ -23,7 +26,12 @@ httproutes: {}
   #   hosts:
   #   - example-route.example.com
   #   uriprefix: example-prefix
-  #   destination: example-service
+  #   destination:
+  #     # -- Service name
+  #     name: example-service
+  #     # -- Namespace of service
+  #     namespace: example-namespace
+  #   # -- Namespace of HTTPRoute
   #   namespace: example-namespace
   #   port: 8181
   #   meshAttached: false

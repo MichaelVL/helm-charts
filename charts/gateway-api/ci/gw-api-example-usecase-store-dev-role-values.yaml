@@ -1,0 +1,16 @@
+# Example from https://gateway-api.sigs.k8s.io - store developer role
+gateway:
+  name: foo-gateway
+  namespace: foo-sre
+
+httproutes:
+  foo-store:
+    uriprefix: "/store"
+    rules:
+    - backendRefs:
+      - name: foo-store-v1
+        port: 80
+        weight: 90
+      - name: foo-store-v2
+        port: 80
+        weight: 10

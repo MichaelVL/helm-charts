@@ -1,0 +1,10 @@
+# Example from https://gateway-api.sigs.k8s.io - site developer role
+gateway:
+  name: foo-gateway
+  namespace: foo-sre
+
+httproutes:
+  foo-site:
+    uriprefix: "/site"
+    destination:
+      name: foo-site

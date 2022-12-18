@@ -36,9 +36,7 @@ Common labels
 {{- define "gateway-api.labels" -}}
 helm.sh/chart: {{ include "gateway-api.chart" . }}
 {{ include "gateway-api.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
+app.kubernetes.io/version: {{ .Chart.Version | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- if .Values.labels }}
 {{ toYaml .Values.labels }}
@@ -65,24 +63,24 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-The version of the Gateway resource. May use .Chart.appVersion
+The version of the Gateway resource.
 */}}
 {{- define "gateway-api.gatewayVersion" -}}
 v1beta1
 {{- end }}
 
 {{/*
-The version of the HTTPRoute resource. May use .Chart.appVersion
+The version of the HTTPRoute resource.
 */}}
 {{- define "gateway-api.httpRouteVersion" -}}
 v1beta1
 {{- end }}
 
 {{/*
-The version of the ReferenceGrant resource. May use .Chart.appVersion
+The version of the ReferenceGrant resource.
 */}}
 {{- define "gateway-api.referenceGrantVersion" -}}
-{{- if semverCompare "< 0.6.0" .Chart.AppVersion -}}
+{{- if semverCompare "< 0.6.0" .Values.gatewayAPIVersion -}}
 v1alpha2
 {{- else -}}
 v1beta1

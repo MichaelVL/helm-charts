@@ -1,0 +1,16 @@
+# Example from https://gateway-api.sigs.k8s.io - cluster operator role
+gateway:
+  create: true
+  name: foo-gateway
+  gatewayClassName: cloud-gw
+  listeners:
+    web:
+      port: 80
+      protocol: HTTP
+      hostname: "foo.example.com"
+
+httproutes:
+  foo-site:
+    namespace: foo-site
+  foo-store:
+    namespace: foo-store

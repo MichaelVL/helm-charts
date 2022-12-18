@@ -1,23 +1,56 @@
 {{- if .Values.referencegrant.enabled -}}
-# Create ReferenceGrant for all HTTPRoutes that have explicit namespace
-{{- range $rt,$spec := .Values.httproutes }}
-{{- if $spec.namespace }}
+{{- range $rt,$spec := .Values.httproutes -}}
+{{- $gwNamespace := default $.Release.Namespace $.Values.gateway.namespace -}}
+{{- $httprouteNamespace := default $.Release.Namespace $spec.namespace -}}
+{{- $destNamespace := "" }}
+{{- if $spec.destination -}}
+  {{- $destNamespace = default (default $.Release.Namespace $spec.namespace) (default "" $spec.destination.namespace) -}}
+{{- else -}}
+  {{- $destNamespace = $httprouteNamespace }}
+{{- end -}}
+{{- if (ne $httprouteNamespace $destNamespace) }}
+# ReferenceGrant for HTTPRoute that have namespace different than its destination
 apiVersion: gateway.networking.k8s.io/{{ include "gateway-api.referenceGrantVersion" $ }}
 kind: ReferenceGrant
 metadata:
   name: {{ $rt }}
-  namespace: {{ $spec.namespace }}
+  namespace: {{ $destNamespace }}
   labels:
     {{- include "gateway-api.labels" $ | nindent 4 }}
 spec:
   from:
   - group: gateway.networking.k8s.io
     kind: HTTPRoute
-    namespace: {{ $.Release.Namespace }}
+    namespace: {{ $httprouteNamespace }}
   to:
   - group: ""
     kind: Service
+    {{ if $spec.destination -}}
+    name: {{ $spec.destination.name }}
+    {{- end }}
 ---
+{{- end }}
+{{- if (ne $httprouteNamespace $gwNamespace) }}
+# ReferenceGrant for HTTPRoute that have namespace different than its parent Gateway. Only rendered if we are not rendering the HTTPRoute itself
+{{- if not (or $spec.destination $spec.rules) }}
+apiVersion: gateway.networking.k8s.io/{{ include "gateway-api.referenceGrantVersion" $ }}
+kind: ReferenceGrant
+metadata:
+  name: {{ $rt }}
+  namespace: {{ $gwNamespace }}
+  labels:
+    {{- include "gateway-api.labels" $ | nindent 4 }}
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: {{ $httprouteNamespace }}
+  to:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: {{ default (include "gateway-api.fullname" $) $.Values.gateway.name }}
+---
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

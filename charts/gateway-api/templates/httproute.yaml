@@ -1,9 +1,11 @@
 {{- range $rt,$spec := .Values.httproutes }}
+# If no HTTPRoute destination or rules are given, no HTTPRoute is rendered
+{{- if (or $spec.destination $spec.rules) }}
 apiVersion: gateway.networking.k8s.io/{{ include "gateway-api.httpRouteVersion" $ }}
 kind: HTTPRoute
 metadata:
   name: {{ $rt }}
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{ default $.Release.Namespace $spec.namespace }}
   labels:
     {{- include "gateway-api.labels" $ | nindent 4 }}
 spec:
@@ -14,9 +16,7 @@ spec:
   {{- else }}
   - kind: Gateway
     name: {{ default (include "gateway-api.fullname" $) $.Values.gateway.name }}
-    {{- if $.Values.gateway.namespace }}
-    namespace: {{ $.Values.gateway.namespace }}
-    {{- end -}}
+    namespace: {{ default $.Release.Namespace $.Values.gateway.namespace }}
   {{- end -}}
   {{- if $spec.hosts }}
   hostnames:
@@ -30,17 +30,19 @@ spec:
   {{- else if $spec.destination }}
   rules:
   - backendRefs:
-    - name: {{ $spec.destination }}
-      port: {{ default 80 $spec.port }}
-      {{- if $spec.namespace }}
-      namespace: {{ $spec.namespace }}
+    - name: {{ $spec.destination.name }}
+      port: {{ default 80 $spec.destination.port }}
+      namespace: {{ default (default $.Release.Namespace $spec.namespace) $spec.destination.namespace }}
+      {{- if $spec.destination.weight }}
+      weight: {{ $spec.destination.weight }}
       {{- end }}
-    {{- if $spec.uriprefix }}
+  {{- end -}}
+  {{- if $spec.uriprefix }}
     matches:
     - path:
         type: PathPrefix
         value: {{ $spec.uriprefix }}
-    {{- end -}}
   {{- end }}
 ---
+{{- end -}}
 {{- end }}

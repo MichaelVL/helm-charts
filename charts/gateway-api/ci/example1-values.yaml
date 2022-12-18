@@ -14,15 +14,17 @@ gateway:
 httproutes:
   rt1:
     uriprefix: "a-prefix"
-    destination: svc1
-    namespace: ns1
+    destination:
+      name: svc1
+      namespace: ns1
   rt2:
     hosts:
     - rt2.example.com
     uriprefix: "a-prefix"
-    destination: svc2
-    namespace: ns2
-    port: 8181
+    destination:
+      name: svc2
+      namespace: ns2
+      port: 8181
   rt3:
     hosts:
     - rt3.example.com
