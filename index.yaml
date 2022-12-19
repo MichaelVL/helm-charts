@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   gateway-api:
   - apiVersion: v2
+    created: "2022-12-19T08:56:02.512966487Z"
+    description: A Helm chart for creating gateway-api configuration
+    digest: e0d587f1f0488adadabdaabce961e28ab5e41016c0f1ffbc5ce6249c3021521f
+    name: gateway-api
+    type: application
+    urls:
+    - https://github.com/pixelperfekt-dk/helm-charts/releases/download/gateway-api-0.3.0/gateway-api-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     appVersion: 0.5.0
     created: "2022-11-30T20:57:58.991605044Z"
     description: A Helm chart for creating gateway-api configuration
@@ -102,4 +111,4 @@ entries:
     urls:
     - https://github.com/pixelperfekt-dk/helm-charts/releases/download/istio-ingress-egress-0.1.1/istio-ingress-egress-0.1.1.tgz
     version: 0.1.1
-generated: "2022-11-30T20:57:58.991944249Z"
+generated: "2022-12-19T08:56:02.512995387Z"
