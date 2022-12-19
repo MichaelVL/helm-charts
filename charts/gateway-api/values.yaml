@@ -18,6 +18,12 @@ gateway:
   #     protocol: HTTP
   #     # -- Hostname (optional). Wildcards are allowed
   #     hostname:
+  #     allowedRoutes:
+  #       namespaces:
+  #         from: Selector
+  #         selector:
+  #           matchLabels:
+  #             foo: bar
   # -- Optional list of addresses to associate with the gateway
   addresses: []
 
@@ -40,3 +46,5 @@ httproutes: {}
 referencegrant:
   # -- Create ReferenceGrant for HTTPRoutes
   enabled: true
+  # -- Enable ReferenceGrant for Gateways. Not part of the core spec.
+  enableForGatewayReferences: false

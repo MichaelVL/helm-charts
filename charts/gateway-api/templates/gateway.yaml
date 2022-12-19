@@ -20,6 +20,10 @@ spec:
     tls:
     {{- toYaml $v.tls | nindent 6 }}
     {{- end }}
+    {{- if $v.allowedRoutes }}
+    allowedRoutes:
+    {{- toYaml $v.allowedRoutes | nindent 6 }}
+    {{- end }}
   {{- end -}}
   {{- if .Values.gateway.addresses }}
   addresses:

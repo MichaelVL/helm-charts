@@ -32,7 +32,7 @@ spec:
 {{- end }}
 {{- if (ne $httprouteNamespace $gwNamespace) }}
 # ReferenceGrant for HTTPRoute that have namespace different than its parent Gateway. Only rendered if we are not rendering the HTTPRoute itself
-{{- if not (or $spec.destination $spec.rules) }}
+{{- if (and (not (or $spec.destination $spec.rules)) $.Values.referencegrant.enableForGatewayReferences) }}
 apiVersion: gateway.networking.k8s.io/{{ include "gateway-api.referenceGrantVersion" $ }}
 kind: ReferenceGrant
 metadata:
